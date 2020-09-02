@@ -1,6 +1,3 @@
-"""
-Joust Cog
-"""
 from Fortuna import *
 from joust.gear import Weapon, Armor, Shield
 

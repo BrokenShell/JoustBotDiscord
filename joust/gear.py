@@ -1,6 +1,3 @@
-"""
-Joust Gear
-"""
 from Fortuna import TruffleShuffle, RandomValue, front_linear, percent_true
 
 
