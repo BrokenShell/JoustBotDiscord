@@ -1,0 +1,4 @@
+Cython~=0.29.16
+discord~=1.0.1
+dnspython~=2.0.0
+Fortuna~=3.17.8
