@@ -21,7 +21,6 @@ async def clear(ctx, amount=999):
     await ctx.channel.purge(limit=amount+1)
 
 
-if __name__ == '__main__':
-    bot.load_extension('cogs.Dice')
-    bot.load_extension('cogs.Joust')
-    bot.run(os.getenv('TOKEN'))
+bot.load_extension('cogs.Dice')
+bot.load_extension('cogs.Joust')
+bot.run(os.getenv('TOKEN'))
