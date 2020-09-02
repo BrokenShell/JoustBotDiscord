@@ -51,3 +51,23 @@ def edit_knight(name,
         knight.inventory = [Weapon() for _ in range(n)]
     save_knight(knight)
     return knight
+
+
+# if __name__ == '__main__':
+#     broken = make_knight("Broken", 25)
+#     print(broken.details())
+#     broken.remove_bonuses(broken.weapon)
+#     weapon = Weapon('Dragonlance of the Zodiac')
+#     weapon.bonuses = (5, 5, 5)
+#     armor = Armor('Field Plate of the Zodiac')
+#     armor.name = 'Field Plate of the Zodiac'
+#     armor.bonus = 5
+#     shield = Shield('Dragonscale Jousting Shield')
+#     shield.bonus = 10
+#     broken.weapon = weapon
+#     broken.armor = armor
+#     broken.shield = shield
+#     broken.apply_bonuses(weapon)
+#     print()
+#     save_knight(broken, "Broken")
+#     print(broken.details())
