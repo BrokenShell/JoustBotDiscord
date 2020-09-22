@@ -230,12 +230,3 @@ def joust(attacker: Knight, defender: Knight):
         return f"After {rounds} rounds, {defender.name} defeated {attacker.name} by points, {d_points} to {a_points}."
     else:
         return f"After {rounds} rounds, the joust is a tie."
-
-
-if __name__ == '__main__':
-    fred = Knight("Fred")
-    fred.equip_best()
-    george = Knight('George')
-    george.equip_best()
-    knights = [fred, george, Knight('Blue Knight'), Knight('Red Knight')]
-    print()

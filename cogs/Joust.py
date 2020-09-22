@@ -120,7 +120,7 @@ class Joust(commands.Cog):
             await ctx.send(joust(*pair))
 
     @commands.command()
-    async def infinite_tournament(self, ctx):
+    async def infinite_tournament(self, ctx, max_rank=100):
         self.stop = False
         while not self.stop:
             knight_list = []
@@ -135,7 +135,7 @@ class Joust(commands.Cog):
                 await sleep(1)
                 attacker.equip_best()
                 defender.equip_best()
-                if attacker.rank == 100 or defender.rank == 100:
+                if attacker.rank == max_rank or defender.rank == max_rank:
                     self.stop = True
                     break
             await self.list(ctx)
