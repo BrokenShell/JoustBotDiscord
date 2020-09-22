@@ -134,7 +134,9 @@ class Joust(commands.Cog):
                 await ctx.send(joust(attacker, defender))
                 await sleep(1)
                 attacker.equip_best()
+                save_knight(attacker)
                 defender.equip_best()
+                save_knight(defender)
                 if attacker.rank == max_rank or defender.rank == max_rank:
                     self.stop = True
                     break
