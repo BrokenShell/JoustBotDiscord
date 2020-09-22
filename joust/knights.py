@@ -197,30 +197,24 @@ def joust(attacker: Knight, defender: Knight):
 
     if d_down and not a_down:
         attacker.victory(defender)
-        return f"After {rounds} rounds, {attacker.name} is the winner by knockdown!"
+        return f"After {rounds} rounds, {attacker.name} defeated {defender.name} by knockdown!"
     elif a_down and not d_down:
         defender.victory(attacker)
-        return f"After {rounds} rounds, {defender.name} is the winner by knockdown!"
+        return f"After {rounds} rounds, {defender.name} defeated {attacker.name} by knockdown!"
     elif a_points > d_points:
         attacker.victory(defender)
-        return f"After {rounds} rounds, {attacker.name} is the winner by points, {a_points} to {d_points}."
+        return f"After {rounds} rounds, {attacker.name} defeated {defender.name} by points, {a_points} to {d_points}."
     elif d_points > a_points:
         defender.victory(attacker)
-        return f"After {rounds} rounds, {defender.name} is the winner by points, {d_points} to {a_points}."
+        return f"After {rounds} rounds, {defender.name} defeated {attacker.name} by points, {d_points} to {a_points}."
     else:
         return f"After {rounds} rounds, the joust is a tie."
-
-
-def tournament():
-    """ Single Elimination Jousting Tournament """
-    pass
 
 
 if __name__ == '__main__':
     fred = Knight("Fred")
     fred.equip_best()
-
     george = Knight('George')
     george.equip_best()
+    knights = [fred, george, Knight('Blue Knight'), Knight('Red Knight')]
     print()
-    print(joust(fred, george) )

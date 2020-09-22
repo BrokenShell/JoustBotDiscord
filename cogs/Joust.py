@@ -1,5 +1,7 @@
 import os
 import pickle
+
+from Fortuna import shuffle
 from discord.ext import commands
 from joust.knights import Knight, joust
 from joust.utilities import get_name, open_knight, save_knight
@@ -33,7 +35,7 @@ class Joust(commands.Cog):
             await ctx.send(character)
             print(f'[!] Created {character.name} for {player}')
         else:
-            await ctx.send('You must first `/delete` the current character.')
+            await ctx.send('You must first `/delete` your current knight.')
 
     @commands.command()
     async def delete(self, ctx):
@@ -107,6 +109,19 @@ class Joust(commands.Cog):
                 pass
         else:
             await ctx.send('You must have 10 gold to participate in the tournaments!')
+
+    @commands.command()
+    async def tournament(self, ctx):
+        """ Single Elimination Jousting Tournament """
+        knight_list = []
+        for file_name in os.listdir('./characters/'):
+            if file_name.endswith('.joust'):
+                knight_list.append(pickle.load(open(f'./characters/{file_name}', 'rb')))
+        shuffle(knight_list)
+        pivot = len(knight_list) // 2
+        bracket = zip(knight_list[:pivot], knight_list[pivot:])
+        for pair in bracket:
+            await ctx.send(joust(*pair))
 
 
 def setup(bot):
