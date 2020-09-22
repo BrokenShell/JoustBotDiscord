@@ -125,6 +125,7 @@ class Joust(commands.Cog):
     @commands.command()
     async def infinite_tournament(self, ctx):
         while True:
+            await self.list(ctx)
             knight_list = []
             for file_name in os.listdir('./characters/'):
                 if file_name.endswith('.joust'):
