@@ -98,12 +98,12 @@ class Joust(commands.Cog):
         if attacker.gold >= 10:
             try:
                 defender = pickle.load(open(f'./characters/{opponent}.joust', 'rb'))
-                print(f'[•] {attacker.name} Jousting {defender.name}')
+                # print(f'[•] {attacker.name} Jousting {defender.name}')
                 attacker.gold -= 10
                 result = joust(attacker, defender)
-                pickle.dump(attacker, open(f'./characters/{player}.joust', 'wb'))
-                pickle.dump(defender, open(f'./characters/{opponent}.joust', 'wb'))
-                print(f'\t[-] {result}')
+                # pickle.dump(attacker, open(f'./characters/{player}.joust', 'wb'))
+                # pickle.dump(defender, open(f'./characters/{opponent}.joust', 'wb'))
+                # print(f'\t[-] {result}')
                 await ctx.send(result)
             except FileNotFoundError:
                 pass

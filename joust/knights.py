@@ -1,5 +1,6 @@
 from Fortuna import *
 from joust.gear import Weapon, Armor, Shield
+from joust.utilities import save_knight
 
 
 def pop_random(arr: list):
@@ -138,6 +139,8 @@ class Knight:
         else:
             self.gold += other_knight.gold
             other_knight.gold = 0
+        save_knight(self)
+        save_knight(other_knight)
 
     def equip(self, item):
         for idx, itm in enumerate(self.inventory):
