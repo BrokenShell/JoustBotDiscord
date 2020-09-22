@@ -132,11 +132,14 @@ class Joust(commands.Cog):
             bracket = zip(knight_list[:pivot], knight_list[pivot:])
             for attacker, defender in bracket:
                 await ctx.send(joust(attacker, defender))
-                await sleep(2)
+                await sleep(1)
                 attacker.equip_best()
                 defender.equip_best()
+                if attacker.rank == 100 or defender.rank == 100:
+                    self.stop = True
+                    break
             await self.list(ctx)
-            await sleep(10)
+            await sleep(5)
 
     @commands.command()
     async def stop(self, ctx):
