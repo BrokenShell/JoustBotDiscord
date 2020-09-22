@@ -1,5 +1,6 @@
 import os
 import pickle
+from asyncio import sleep
 
 from Fortuna import shuffle
 from discord.ext import commands
@@ -111,7 +112,6 @@ class Joust(commands.Cog):
 
     @commands.command()
     async def tournament(self, ctx):
-        """ Single Elimination Jousting Tournament """
         knight_list = []
         for file_name in os.listdir('./characters/'):
             if file_name.endswith('.joust'):
@@ -121,6 +121,20 @@ class Joust(commands.Cog):
         bracket = zip(knight_list[:pivot], knight_list[pivot:])
         for pair in bracket:
             await ctx.send(joust(*pair))
+
+    @commands.command()
+    async def infinite_tournament(self, ctx):
+        while True:
+            knight_list = []
+            for file_name in os.listdir('./characters/'):
+                if file_name.endswith('.joust'):
+                    knight_list.append(pickle.load(open(f'./characters/{file_name}', 'rb')))
+            shuffle(knight_list)
+            pivot = len(knight_list) // 2
+            bracket = zip(knight_list[:pivot], knight_list[pivot:])
+            for pair in bracket:
+                await ctx.send(joust(*pair))
+            await sleep(10)
 
 
 def setup(bot):
