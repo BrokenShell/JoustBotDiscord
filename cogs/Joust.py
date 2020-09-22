@@ -3,8 +3,7 @@ import pickle
 
 from Fortuna import shuffle
 from discord.ext import commands
-from joust.knights import Knight, joust
-from joust.utilities import get_name, open_knight, save_knight
+from joust.knights import Knight, joust, get_name, open_knight, save_knight
 
 
 class Joust(commands.Cog):

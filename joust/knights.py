@@ -1,11 +1,29 @@
+import pickle
+
 from Fortuna import *
 from joust.gear import Weapon, Armor, Shield
-from joust.utilities import save_knight
 
 
 def pop_random(arr: list):
     if arr:
         return arr.pop(random_index(len(arr)))
+
+
+def get_name(author):
+    name, _ = str(author).split("#")
+    return name
+
+
+def save_knight(knight, player=None):
+    file_name = player if player else knight.name
+    pickle.dump(knight, open(f'./characters/{file_name}.joust', 'wb'))
+
+
+def open_knight(name: str):
+    try:
+        return pickle.load(open(f'./characters/{name}.joust', 'rb'))
+    except FileNotFoundError:
+        return Knight(name)
 
 
 class Knight:
