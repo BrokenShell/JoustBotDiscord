@@ -125,7 +125,6 @@ class Joust(commands.Cog):
     @commands.command()
     async def infinite_tournament(self, ctx):
         while True:
-            await self.list(ctx)
             knight_list = []
             for file_name in os.listdir('./characters/'):
                 if file_name.endswith('.joust'):
@@ -135,7 +134,8 @@ class Joust(commands.Cog):
             bracket = zip(knight_list[:pivot], knight_list[pivot:])
             for pair in bracket:
                 await ctx.send(joust(*pair))
-            await sleep(10)
+            await self.list(ctx)
+            await sleep(20)
 
 
 def setup(bot):
