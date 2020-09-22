@@ -98,12 +98,8 @@ class Joust(commands.Cog):
         if attacker.gold >= 10:
             try:
                 defender = pickle.load(open(f'./characters/{opponent}.joust', 'rb'))
-                # print(f'[•] {attacker.name} Jousting {defender.name}')
                 attacker.gold -= 10
                 result = joust(attacker, defender)
-                # pickle.dump(attacker, open(f'./characters/{player}.joust', 'wb'))
-                # pickle.dump(defender, open(f'./characters/{opponent}.joust', 'wb'))
-                # print(f'\t[-] {result}')
                 await ctx.send(result)
             except FileNotFoundError:
                 pass
@@ -132,10 +128,13 @@ class Joust(commands.Cog):
             shuffle(knight_list)
             pivot = len(knight_list) // 2
             bracket = zip(knight_list[:pivot], knight_list[pivot:])
-            for pair in bracket:
-                await ctx.send(joust(*pair))
+            for attacker, defender in bracket:
+                await ctx.send(joust(attacker, defender))
+                await sleep(2)
+                attacker.equip_best()
+                defender.equip_best()
             await self.list(ctx)
-            await sleep(20)
+            await sleep(10)
 
 
 def setup(bot):
