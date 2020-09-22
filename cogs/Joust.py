@@ -12,6 +12,7 @@ class Joust(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.stop = False
 
     @commands.command()
     async def story(self, ctx, *, background):
@@ -120,7 +121,7 @@ class Joust(commands.Cog):
 
     @commands.command()
     async def infinite_tournament(self, ctx):
-        while True:
+        while not self.stop:
             knight_list = []
             for file_name in os.listdir('./characters/'):
                 if file_name.endswith('.joust'):
@@ -135,6 +136,10 @@ class Joust(commands.Cog):
                 defender.equip_best()
             await self.list(ctx)
             await sleep(10)
+
+    @commands.command()
+    async def stop(self, ctx):
+        self.stop = True
 
 
 def setup(bot):
