@@ -15,23 +15,31 @@ class Weapon:
         'Lance': 3,
     }
     random_weapon = RandomValue(weapons.keys(), zero_cool=front_linear)
-    modifiers = {
-        ' of the Owl': (1, 0, 0),
-        ' of the Wolf': (0, 1, 0),
-        ' of the Pixie': (0, 0, 1),
-        ' of the Raven': (2, 0, 0),
-        ' of the Lion': (0, 2, 0),
-        ' of the Dryad': (0, 0, 2),
-        ' of the Fool': (0, 0, 0),
-        ' of the Dragon': (3, 0, 0),
-        ' of the Sphinx': (0, 3, 0),
-        ' of the Unicorn': (0, 0, 3),
-        ' of the Gorgon': (3, 0, 3),
-        ' of the Righteous': (0, 3, 3),
-        ' of the Titan': (3, 3, 0),
-        ' of the Zodiac': (3, 3, 3),
+    pre_modifiers = {
+        'Merciless': (3, 3, 3),
+        'Unyielding': (2, 2, 2),
+        'Golden': (1, 1, 1),
+        'Silver': (0, 0, 0),
+        'Wooden': (-1, -1, -1),
     }
-    random_suffix = RandomValue(modifiers.keys(), zero_cool=front_linear)
+    post_modifiers = {
+        'Owl': (1, 0, 0),
+        'Wolf': (0, 1, 0),
+        'Pixie': (0, 0, 1),
+        'Raven': (2, 0, 0),
+        'Lion': (0, 2, 0),
+        'Dryad': (0, 0, 2),
+        'Fool': (0, 0, 0),
+        'Dragon': (3, 0, 0),
+        'Sphinx': (0, 3, 0),
+        'Unicorn': (0, 0, 3),
+        'Gorgon': (3, 0, 3),
+        'Righteous': (0, 3, 3),
+        'Titan': (3, 3, 0),
+        'Zodiac': (3, 3, 3),
+    }
+    random_prefix = RandomValue(pre_modifiers.keys(), zero_cool=front_linear)
+    random_suffix = RandomValue(post_modifiers.keys(), zero_cool=front_linear)
 
     def __init__(self, name=None):
         if name:
@@ -43,12 +51,22 @@ class Weapon:
             self.weapon = self.random_weapon()
             self.bonus = self.weapons[self.weapon]
             self.suffix = ''
-            if percent_true(25):
+            if percent_true(30):
                 self.suffix = self.random_suffix()
-                self.bonuses = self.modifiers[self.suffix]
+                self.bonuses = self.post_modifiers[self.suffix]
+                self.name = f'{self.weapon} of the {self.suffix}'
+            elif percent_true(20):
+                self.prefix = self.random_prefix()
+                self.bonuses = self.pre_modifiers[self.prefix]
+                self.name = f'{self.prefix} {self.weapon}'
+            elif percent_true(10):
+                self.prefix = self.random_prefix()
+                self.suffix = self.random_suffix()
+                self.bonuses = (a + b for a, b in zip(self.pre_modifiers[self.prefix], self.post_modifiers[self.suffix]))
+                self.name = f'{self.prefix} {self.weapon} of the {self.suffix}'
             else:
                 self.bonuses = (0, 0, 0)
-            self.name = f'{self.weapon}{self.suffix}'
+                self.name = f'{self.weapon}'
         self.value = self.bonus + sum(self.bonuses)
 
     def __str__(self):
@@ -77,7 +95,7 @@ class Armor:
         if name:
             self.armor = None
             self.bonus = 0
-            self.name = f'{self.color} {name}'
+            self.name = name
         else:
             self.armor = self.random_armor()
             self.bonus = self.modifiers[self.armor]
@@ -117,14 +135,3 @@ class Shield:
 
     def __str__(self):
         return self.name
-
-
-if __name__ == '__main__':
-    # print(Weapon('Rolling Pin'))
-    # print(Armor('Wine Barrel'))
-    # print(Shield('Saucepan Lid'))
-
-    arr = [Weapon('Bowling Pin'), Weapon(), Weapon(), Weapon()]
-    print(*arr, sep=', ')
-    arr.sort(key=lambda x: x.value)
-    print(*arr, sep=', ')
