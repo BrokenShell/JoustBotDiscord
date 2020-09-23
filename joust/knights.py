@@ -16,7 +16,9 @@ def get_name(author):
 
 def save_knight(knight, player=None):
     file_name = player if player else knight.name
-    pickle.dump(knight, open(f'./characters/{file_name}.joust', 'wb'))
+    print(knight)
+    with open(f'./characters/{file_name}.joust', 'wb') as file:
+        pickle.dump(knight, file)
 
 
 def open_knight(name: str):

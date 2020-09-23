@@ -16,11 +16,11 @@ class Weapon:
     }
     random_weapon = RandomValue(weapons.keys(), zero_cool=front_linear)
     pre_modifiers = {
-        'Merciless': (3, 3, 3),
-        'Unyielding': (2, 2, 2),
-        'Golden': (1, 1, 1),
-        'Silver': (0, 0, 0),
         'Wooden': (-1, -1, -1),
+        'Silver': (0, 0, 0),
+        'Golden': (1, 1, 1),
+        'Unyielding': (2, 2, 2),
+        'Merciless': (3, 3, 3),
     }
     post_modifiers = {
         'Owl': (1, 0, 0),
@@ -62,7 +62,7 @@ class Weapon:
             elif percent_true(10):
                 self.prefix = self.random_prefix()
                 self.suffix = self.random_suffix()
-                self.bonuses = (a + b for a, b in zip(self.pre_modifiers[self.prefix], self.post_modifiers[self.suffix]))
+                self.bonuses = tuple(a + b for a, b in zip(self.pre_modifiers[self.prefix], self.post_modifiers[self.suffix]))
                 self.name = f'{self.prefix} {self.weapon} of the {self.suffix}'
             else:
                 self.bonuses = (0, 0, 0)
