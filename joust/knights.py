@@ -153,7 +153,10 @@ class Knight:
         self.rank_up()
         self.gold += d(10) + 10
         if other_knight.inventory:
-            self.inventory.append(pop_random(other_knight.inventory))
+            if percent_true(50):
+                self.inventory.append(Weapon())
+            else:
+                self.inventory.append(pop_random(other_knight.inventory))
         else:
             self.gold += other_knight.gold
             other_knight.gold = 0

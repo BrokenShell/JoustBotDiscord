@@ -116,8 +116,8 @@ class Joust(commands.Cog):
         shuffle(knight_list)
         pivot = len(knight_list) // 2
         bracket = zip(knight_list[:pivot], knight_list[pivot:])
-        for pair in bracket:
-            await ctx.send(joust(*pair))
+        for attacker, defender in bracket:
+            await ctx.send(joust(attacker, defender))
 
     @commands.command()
     async def infinite_tournament(self, ctx, max_rank=100):
