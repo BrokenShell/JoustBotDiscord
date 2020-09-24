@@ -108,7 +108,7 @@ class Joust(commands.Cog):
             await ctx.send('You must have 10 gold to participate in the tournaments!')
 
     @commands.command()
-    async def tournament(self, ctx):
+    async def single_tournament(self, ctx):
         knight_list = []
         for file_name in os.listdir('./characters/'):
             if file_name.endswith('.joust'):
@@ -120,7 +120,7 @@ class Joust(commands.Cog):
             await ctx.send(joust(attacker, defender))
 
     @commands.command()
-    async def infinite_tournament(self, ctx, max_rank=100):
+    async def tournament(self, ctx, max_rank=100):
         self.stop = False
         while not self.stop:
             knight_list = []
